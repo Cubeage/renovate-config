@@ -5,7 +5,6 @@
     ":dependencyDashboard",
     "schedule:weekends",
     ":semanticCommits",
-    ":maintainLockFiles",
     ":enableVulnerabilityAlerts",
     ":automergePatch",
     ":automergeMinor",
