@@ -13,15 +13,15 @@
   "timezone": "Europe/London",
   "dependencyDashboardTitle": "Dependency Dashboard",
   "labels": ["dependencies"],
-  "rangeStrategy": "pin",
+  "rangeStrategy": "widen",
   "rebaseWhen": "behind-base-branch",
   "prConcurrentLimit": 5,
   "prHourlyLimit": 2,
   "stabilityDays": 3,
-  
+
   "packageRules": [
     {
-      "matchUpdateTypes": ["minor", "patch", "pin", "digest"],
+      "matchUpdateTypes": ["minor", "patch", "digest"],
       "automerge": true
     },
     {
@@ -31,16 +31,23 @@
     },
     {
       "matchDepTypes": ["devDependencies"],
+      "rangeStrategy": "pin",
+      "automerge": true,
+      "labels": ["dev"]
+    },
+    {
+      "matchPackagePatterns": ["^@types/"],
+      "groupName": "TypeScript type definitions",
       "automerge": true
     },
-    
-    // Docker related rules
+
+    // Docker
     {
       "matchDatasources": ["docker"],
       "labels": ["docker-update"]
     },
-    
-    // Android related rules
+
+    // Android
     {
       "matchCategories": ["android"],
       "matchManagers": ["gradle", "gradle-wrapper"],
@@ -52,51 +59,44 @@
       "groupName": "android core dependencies",
       "stabilityDays": 7
     },
-    
-    // iOS related rules
+
+    // iOS
     {
       "matchDatasources": ["swift", "pod"],
       "groupName": "iOS dependencies",
       "labels": ["ios"],
       "stabilityDays": 5
     },
-    
-    // Flutter/Dart related rules
+
+    // Flutter / Dart
     {
       "matchDatasources": ["dart", "pub"],
       "groupName": "Flutter dependencies",
       "labels": ["flutter", "dart"]
     },
-    
-    // JavaScript/TypeScript related rules
-    {
-      "matchPackagePatterns": ["^@types/"],
-      "groupName": "TypeScript type definitions",
-      "automerge": true
-    },
-    
-    // React related rules
+
+    // React
     {
       "matchPackagePatterns": ["^react", "^@react"],
       "groupName": "React packages",
       "labels": ["react"]
     },
-    
-    // React Native related rules
+
+    // React Native
     {
       "matchPackagePatterns": ["^react-native", "^@react-native"],
       "groupName": "React Native packages",
       "labels": ["react-native"]
     },
-    
-    // Vue related rules
+
+    // Vue
     {
       "matchPackagePatterns": ["^vue", "^@vue", "^nuxt", "^@nuxt"],
       "groupName": "Vue packages",
       "labels": ["vue"]
     },
-    
-    // Linting & Testing related rules
+
+    // Linting / Testing
     {
       "matchPackagePatterns": ["eslint", "prettier"],
       "groupName": "Linting packages",
@@ -107,16 +107,16 @@
       "groupName": "Testing packages",
       "labels": ["testing"]
     },
-    
-    // Bun related rules
+
+    // Bun
     {
       "matchManagers": ["npm"],
       "matchPackageNames": ["bun", "bun-types"],
       "groupName": "Bun packages",
       "labels": ["bun"]
     },
-    
-    // PHP related rules
+
+    // PHP / Laravel
     {
       "matchDatasources": ["packagist"],
       "labels": ["php"]
@@ -131,14 +131,14 @@
       "groupName": "Symfony packages",
       "labels": ["symfony"]
     },
-    
-    // DevContainer support
+
+    // DevContainer
     {
       "matchManagers": ["devcontainer"],
       "labels": ["devcontainer"]
     },
-    
-    // Python related rules
+
+    // Python
     {
       "matchManagers": ["pip_requirements", "pip_setup", "pipenv", "poetry", "pep621", "setup-cfg"],
       "groupName": "Python dependencies",
@@ -160,75 +160,48 @@
       "labels": ["python-testing"]
     }
   ],
-  
-  // Manager configurations
+
+  // Manager settings
   "docker": {
     "enabled": true,
     "pinDigests": true
   },
-  
   "gradle": {
     "fileMatch": ["^build\\.gradle$", "^build\\.gradle\\.kts$", "^settings\\.gradle\\.kts$", "^settings\\.gradle$"]
   },
-  
-  "swift": {
-    "enabled": true
-  },
-  
-  "cocoapods": {
-    "enabled": true
-  },
-  
-  "dart": {
-    "enabled": true
-  },
-  
-  "flutter": {
-    "enabled": true
-  },
-  
+  "swift": { "enabled": true },
+  "cocoapods": { "enabled": true },
+  "dart": { "enabled": true },
+  "flutter": { "enabled": true },
   "composer": {
     "enabled": true,
     "fileMatch": ["(^|/)composer\\.json$"]
   },
-  
   "npm": {
     "fileMatch": ["(^|/)package\\.json$", "(^|/)pnpm-lock\\.yaml$", "(^|/)bun\\.lockb$"]
   },
-  
-  "devcontainer": {
-    "enabled": true
-  },
-  
-  // Python manager configurations
+  "devcontainer": { "enabled": true },
+
+  // Python managers
   "pip_requirements": {
     "enabled": true,
     "fileMatch": ["(^|/)requirements\\.txt$", "(^|/)requirements/.*\\.txt$", "(^|/)requirements-.*\\.txt$"]
   },
-  "pip_setup": {
-    "enabled": true
-  },
-  "pipenv": {
-    "enabled": true
-  },
-  "poetry": {
-    "enabled": true
-  },
-  "pep621": {
-    "enabled": true
-  },
-  "setup-cfg": {
-    "enabled": true
-  },
-  
+  "pip_setup": { "enabled": true },
+  "pipenv": { "enabled": true },
+  "poetry": { "enabled": true },
+  "pep621": { "enabled": true },
+  "setup-cfg": { "enabled": true },
+
+  // Lockfile maintenance
   "lockFileMaintenance": {
     "enabled": true,
     "schedule": ["before 5am on monday"]
   },
-  
-  // Ignore specific paths
+
+  // Ignore paths
   "ignorePaths": [
-    "**/ios/Pods/**", 
+    "**/ios/Pods/**",
     "**/android/.gradle/**",
     "**/node_modules/**",
     "**/vendor/**",
