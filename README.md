@@ -1,5 +1,7 @@
 # Shared Renovate Configuration
 
+<p align="center"><img src="https://mark.sylphx.com/api/v1/mark/hero.svg?type=aurora&color=0:A02028,50:E03840,100:1A1A1A&text=renovate-config&desc=Shared%20Renovate%20configuration" alt="renovate-config" /></p>
+
 This repository contains a unified Renovate configuration that can handle multiple technology stacks, including:
 - Docker
 - Android
